@@ -3,6 +3,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Navigation from 'vue-navigation'
+
 import App from './App.vue';
 import routes from './router';
 import store from './store';
@@ -14,13 +16,21 @@ Vue.use(ElementUI);
 let router = null;
 let instance = null;
 
+
+
 function render(props = {}) {
   const { container } = props;
   router = new VueRouter({
-    base: window.__POWERED_BY_QIANKUN__ ? '/vue' : '/',
-    mode: 'history',
+    // base: window.__POWERED_BY_QIANKUN__ ? '/vue' : '/',
     routes,
   });
+
+  router.beforeEach((to,from ,next) => {
+    console.log('=====')
+    next()
+  })
+
+  Vue.use(Navigation, {router})
 
   instance = new Vue({
     router,
@@ -62,5 +72,10 @@ export async function unmount() {
   instance.$destroy();
   instance.$el.innerHTML = '';
   instance = null;
-  router = null;
+  // router = null;
 }
+
+
+window.addEventListener('hashchange', (e) => {
+  console.log(e)
+})

@@ -4,7 +4,7 @@ let app;
 
 function mount() {
   app = loadMicroApp(
-    { name: 'react15', entry: '//localhost:7102', container: '#react15' },
+    { name: 'react16', entry: '//localhost:7100', container: '#react16' },
     { sandbox: { experimentalStyleIsolation: true } },
   );
 }
